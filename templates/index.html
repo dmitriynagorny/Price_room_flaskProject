@@ -1,0 +1,395 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Calculation</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.min.js">
+</head>
+
+<H1 align="center">
+    Предсказание цены на квартиру по параметрам
+</H1>
+<form method="POST" action="/calculation">
+    <div class="row gx-5" style="margin-left: 20px; margin-right: 20px; margin-top: 40px;">
+        <div class="col-md-2">
+            <div class="row ml-0 mr-0">
+                <input class="form-control" type="number" id="replyNumber" min="0" step="0.01" data-bind="value:replyNumber" placeholder="Площадь (м2)" name="space">
+            </div>
+        </div>
+        <div class="col-md-1">
+            <div class="row ml-0 mr-0">
+                <input class="form-control" type="number" id="replyNumber" min="0" step="1" data-bind="value:replyNumber" placeholder="Этаж" name="floor">
+            </div>
+        </div>
+        <div class="col-md-1">
+            <div class="row ml-0 mr-0">
+                <input class="form-control" type="number" id="replyNumber" min="0" step="1" data-bind="value:replyNumber" placeholder="Всего этажей" name="floors">
+            </div>
+        </div>
+        <div class="col-md-2">
+            <div class="row ml-0 mr-0">
+                <input class="form-control" type="number" id="replyNumber" min="0" step="0.01" data-bind="value:replyNumber" placeholder="Высота потолков (м)" name="height">
+            </div>
+        </div>
+        <div class="col-md-1">
+            <div class="row ml-0 mr-0">
+                <input class="form-control" type="number" id="replyNumber" min="0" max="5" data-bind="value:replyNumber" placeholder="Балконов" name="balcony">
+            </div>
+        </div>
+        <div class="col-md-1">
+            <div class="row ml-0 mr-0">
+                <input class="form-control" type="number" id="replyNumber" min="0" max="5" data-bind="value:replyNumber" placeholder="Туалетов" name="bathroom">
+            </div>
+        </div>
+        <div class="col-md-2">
+            <div class="row ml-0 mr-0">
+                <input class="form-control" type="number" id="replyNumber" min="0" data-bind="value:replyNumber" placeholder="Время до метро в минутах" name="metro_time">
+            </div>
+        </div>
+        <div class="col-md-2 gy-2">
+            <div class="row ml-0 mr-1">
+                <select class="custom-select mr-sm-2" id="inlineFormCustomSelect" name="auto_foot">
+                    <option selected>Пешком или на транспорте</option>
+                        <option value="4">Транспорте</option>
+                        <option value="1">Пешком</option>
+                </select>
+            </div>
+        </div>
+    </div>
+    <div class="row gx-5" style="margin-left: 20px; margin-right: 20px; margin-top: 20px;">
+        <div class="col-md-1 gy-2">
+            <div class="row ml-0 mr-1">
+                <select class="custom-select mr-sm-2" id="inlineFormCustomSelect" name="room">
+                    <option selected>Комнат</option>
+                        <option value="1">1</option>
+                        <option value="2">2</option>
+                        <option value="3">3</option>
+                        <option value="4">4</option>
+                </select>
+            </div>
+        </div>
+        <div class="col-md-1 gy-2">
+            <div class="row ml-0 mr-0">
+                <select class="custom-select mr-sm-2" id="inlineFormCustomSelect" name="metro">
+                    <option selected value="-1">Метро</option>
+                        <option value="Автозаводская">Автозаводская</option>
+                        <option value="Академическая">Академическая</option>
+                        <option value="Александровский сад">Александровский сад</option>
+                        <option value="Алексеевская">Алексеевская</option>
+                        <option value="Алма-Атинская">Алма-Атинская</option>
+                        <option value="Алтуфьево">Алтуфьево</option>
+                        <option value="Аминьевская">Аминьевская</option>
+                        <option value="Аннино">Аннино</option>
+                        <option value="Арбатская">Арбатская</option>
+                        <option value="Аэропорт">Аэропорт</option>
+                        <option value="Бабушкинская">Бабушкинская</option>
+                        <option value="Багратионовская">Багратионовская</option>
+                        <option value="Баррикадная">Баррикадная</option>
+                        <option value="Бауманская">Бауманская</option>
+                        <option value="Беговая">Беговая</option>
+                        <option value="Белокаменная">Белокаменная</option>
+                        <option value="Беломорская">Беломорская</option>
+                        <option value="Белорусская">Белорусская</option>
+                        <option value="Беляево">Беляево</option>
+                        <option value="Бескудниково">Бескудниково</option>
+                        <option value="Бибирево">Бибирево</option>
+                        <option value="Библиотека им. Ленина">Библиотека им. Ленина</option>
+                        <option value="Борисово">Борисово</option>
+                        <option value="Боровское шоссе">Боровское шоссе</option>
+                        <option value="Ботанический сад">Ботанический сад</option>
+                        <option value="Братиславская">Братиславская</option>
+                        <option value="Бульвар Адмирала Ушакова">Бульвар Адмирала Ушакова</option>
+                        <option value="Бульвар Дмитрия Донского">Бульвар Дмитрия Донского</option>
+                        <option value="Бульвар Рокоссовского">Бульвар Рокоссовского</option>
+                        <option value="Бунинская аллея">Бунинская аллея</option>
+                        <option value="Бутово">Бутово</option>
+                        <option value="Бутырская">Бутырская</option>
+                        <option value="ВДНХ">ВДНХ</option>
+                        <option value="Верхние Лихоборы">Верхние Лихоборы</option>
+                        <option value="Владыкино">Владыкино</option>
+                        <option value="Водники">Водники</option>
+                        <option value="Водный стадион">Водный стадион</option>
+                        <option value="Войковская">Войковская</option>
+                        <option value="Волгоградский проспект">Волгоградский проспект</option>
+                        <option value="Волжская">Волжская</option>
+                        <option value="Волоколамская">Волоколамская</option>
+                        <option value="Воробьевы горы">Воробьевы горы</option>
+                        <option value="Воронцовская">Воронцовская</option>
+                        <option value="Выставочная">Выставочная</option>
+                        <option value="Выхино">Выхино</option>
+                        <option value="Говорово">Говорово</option>
+                        <option value="Гражданская">Гражданская</option>
+                        <option value="Давыдково">Давыдково</option>
+                        <option value="Дегунино">Дегунино</option>
+                        <option value="Деловой центр">Деловой центр</option>
+                        <option value="Депо">Депо</option>
+                        <option value="Динамо">Динамо</option>
+                        <option value="Дмитровская">Дмитровская</option>
+                        <option value="Добрынинская">Добрынинская</option>
+                        <option value="Долгопрудная">Долгопрудная</option>
+                        <option value="Домодедовская">Домодедовская</option>
+                        <option value="Достоевская">Достоевская</option>
+                        <option value="Дубровка">Дубровка</option>
+                        <option value="Жулебино">Жулебино</option>
+                        <option value="ЗИЛ">ЗИЛ</option>
+                        <option value="Зорге">Зорге</option>
+                        <option value="Зюзино">Зюзино</option>
+                        <option value="Зябликово">Зябликово</option>
+                        <option value="Измайлово">Измайлово</option>
+                        <option value="Измайловская">Измайловская</option>
+                        <option value="Калитники">Калитники</option>
+                        <option value="Калужская">Калужская</option>
+                        <option value="Кантемировская">Кантемировская</option>
+                        <option value="Каховская">Каховская</option>
+                        <option value="Киевская">Киевская</option>
+                        <option value="Китай-город">Китай-город</option>
+                        <option value="Кожуховская">Кожуховская</option>
+                        <option value="Коломенская">Коломенская</option>
+                        <option value="Коммунарка">Коммунарка</option>
+                        <option value="Комсомольская">Комсомольская</option>
+                        <option value="Коньково">Коньково</option>
+                        <option value="Коптево">Коптево</option>
+                        <option value="Косино">Косино</option>
+                        <option value="Красногвардейская">Красногвардейская</option>
+                        <option value="Краснопресненская">Краснопресненская</option>
+                        <option value="Красносельская">Красносельская</option>
+                        <option value="Красные ворота">Красные ворота</option>
+                        <option value="Красный Балтиец">Красный Балтиец</option>
+                        <option value="Красный Строитель">Красный Строитель</option>
+                        <option value="Кропоткинская">Кропоткинская</option>
+                        <option value="Крылатское">Крылатское</option>
+                        <option value="Крымская">Крымская</option>
+                        <option value="Кузнецкий мост">Кузнецкий мост</option>
+                        <option value="Кузьминки">Кузьминки</option>
+                        <option value="Кунцевская">Кунцевская</option>
+                        <option value="Курская">Курская</option>
+                        <option value="Кутузовская">Кутузовская</option>
+                        <option value="Ленинский проспект">Ленинский проспект</option>
+                        <option value="Лермонтовский проспект">Лермонтовский проспект</option>
+                        <option value="Лесопарковая">Лесопарковая</option>
+                        <option value="Лефортово">Лефортово</option>
+                        <option value="Лихоборы">Лихоборы</option>
+                        <option value="Ломоносовский проспект">Ломоносовский проспект</option>
+                        <option value="Лубянка">Лубянка</option>
+                        <option value="Лужники">Лужники</option>
+                        <option value="Люблино">Люблино</option>
+                        <option value="Марк">Марк</option>
+                        <option value="Марьина роща">Марьина роща</option>
+                        <option value="Марьино">Марьино</option>
+                        <option value="Маяковская">Маяковская</option>
+                        <option value="Медведково">Медведково</option>
+                        <option value="Международная">Международная</option>
+                        <option value="Менделеевская">Менделеевская</option>
+                        <option value="Минская">Минская</option>
+                        <option value="Митино">Митино</option>
+                        <option value="Мичуринский проспект">Мичуринский проспект</option>
+                        <option value="Мневники">Мневники</option>
+                        <option value="Молодежная">Молодежная</option>
+                        <option value="Мякинино">Мякинино</option>
+                        <option value="Нагатинская">Нагатинская</option>
+                        <option value="Нагорная">Нагорная</option>
+                        <option value="Народное ополчение">Народное ополчение</option>
+                        <option value="Нахимовский проспект">Нахимовский проспект</option>
+                        <option value="Некрасовка">Некрасовка</option>
+                        <option value="Немчиновка">Немчиновка</option>
+                        <option value="Нижегородская">Нижегородская</option>
+                        <option value="Новаторская">Новаторская</option>
+                        <option value="Новогиреево">Новогиреево</option>
+                        <option value="Новодачная">Новодачная</option>
+                        <option value="Новокузнецкая">Новокузнецкая</option>
+                        <option value="Новопеределкино">Новопеределкино</option>
+                        <option value="Новохохловская">Новохохловская</option>
+                        <option value="Новые Черемушки">Новые Черемушки</option>
+                        <option value="Озерная">Озерная</option>
+                        <option value="Окружная">Окружная</option>
+                        <option value="Окская">Окская</option>
+                        <option value="Октябрьская">Октябрьская</option>
+                        <option value="Октябрьское поле">Октябрьское поле</option>
+                        <option value="Ольховая">Ольховая</option>
+                        <option value="Орехово">Орехово</option>
+                        <option value="Остафьево">Остафьево</option>
+                        <option value="Отрадное">Отрадное</option>
+                        <option value="Охотный ряд">Охотный ряд</option>
+                        <option value="Павелецкая">Павелецкая</option>
+                        <option value="Панфиловская">Панфиловская</option>
+                        <option value="Парк Культуры">Парк Культуры</option>
+                        <option value="Парк Победы">Парк Победы</option>
+                        <option value="Первомайская">Первомайская</option>
+                        <option value="Перерва">Перерва</option>
+                        <option value="Перово">Перово</option>
+                        <option value="Петровский Парк">Петровский Парк</option>
+                        <option value="Петровско-Разумовская">Петровско-Разумовская</option>
+                        <option value="Печатники">Печатники</option>
+                        <option value="Планерная">Планерная</option>
+                        <option value="Площадь Гагарина">Площадь Гагарина</option>
+                        <option value="Площадь Ильича">Площадь Ильича</option>
+                        <option value="Площадь трёх вокзалов">Площадь трёх вокзалов</option>
+                        <option value="Покровское">Покровское</option>
+                        <option value="Полежаевская">Полежаевская</option>
+                        <option value="Полянка">Полянка</option>
+                        <option value="Пражская">Пражская</option>
+                        <option value="Преображенская площадь">Преображенская площадь</option>
+                        <option value="Прокшино">Прокшино</option>
+                        <option value="Пролетарская">Пролетарская</option>
+                        <option value="Проспект Вернадского">Проспект Вернадского</option>
+                        <option value="Проспект Мира">Проспект Мира</option>
+                        <option value="Профсоюзная">Профсоюзная</option>
+                        <option value="Пушкинская">Пушкинская</option>
+                        <option value="Пятницкое шоссе">Пятницкое шоссе</option>
+                        <option value="Рабочий поселок">Рабочий поселок</option>
+                        <option value="Раменки">Раменки</option>
+                        <option value="Рассказовка">Рассказовка</option>
+                        <option value="Речной вокзал">Речной вокзал</option>
+                        <option value="Рижская">Рижская</option>
+                        <option value="Римская">Римская</option>
+                        <option value="Ростокино">Ростокино</option>
+                        <option value="Румянцево">Румянцево</option>
+                        <option value="Рязанский проспект">Рязанский проспект</option>
+                        <option value="Савеловская">Савеловская</option>
+                        <option value="Саларьево">Саларьево</option>
+                        <option value="Свиблово">Свиблово</option>
+                        <option value="Севастопольская">Севастопольская</option>
+                        <option value="Селигерская">Селигерская</option>
+                        <option value="Семеновская">Семеновская</option>
+                        <option value="Серпуховская">Серпуховская</option>
+                        <option value="Сетунь">Сетунь</option>
+                        <option value="Силикатная">Силикатная</option>
+                        <option value="Славянский бульвар">Славянский бульвар</option>
+                        <option value="Смоленская">Смоленская</option>
+                        <option value="Сокол">Сокол</option>
+                        <option value="Соколиная гора">Соколиная гора</option>
+                        <option value="Сокольники">Сокольники</option>
+                        <option value="Солнцево">Солнцево</option>
+                        <option value="Спартак">Спартак</option>
+                        <option value="Спортивная">Спортивная</option>
+                        <option value="Стрешнево">Стрешнево</option>
+                        <option value="Строгино">Строгино</option>
+                        <option value="Студенческая">Студенческая</option>
+                        <option value="Сухаревская">Сухаревская</option>
+                        <option value="Сходненская">Сходненская</option>
+                        <option value="Таганская">Таганская</option>
+                        <option value="Тверская">Тверская</option>
+                        <option value="Текстильщики">Текстильщики</option>
+                        <option value="Телецентр">Телецентр</option>
+                        <option value="Теплый Стан">Теплый Стан</option>
+                        <option value="Терехово ">Терехово </option>
+                        <option value="Тестовская">Тестовская</option>
+                        <option value="Технопарк">Технопарк</option>
+                        <option value="Тимирязевская">Тимирязевская</option>
+                        <option value="Третьяковская">Третьяковская</option>
+                        <option value="Трикотажная">Трикотажная</option>
+                        <option value="Тропарево">Тропарево</option>
+                        <option value="Трубная">Трубная</option>
+                        <option value="Тульская">Тульская</option>
+                        <option value="Тушинская">Тушинская</option>
+                        <option value="Угрешская">Угрешская</option>
+                        <option value="Улица 1905 года">Улица 1905 года</option>
+                        <option value="Улица Академика Королева">Улица Академика Королева</option>
+                        <option value="Улица Академика Янгеля">Улица Академика Янгеля</option>
+                        <option value="Улица Горчакова">Улица Горчакова</option>
+                        <option value="Улица Дмитриевского">Улица Дмитриевского</option>
+                        <option value="Улица Сергея Эйзенштейна">Улица Сергея Эйзенштейна</option>
+                        <option value="Улица Скобелевская">Улица Скобелевская</option>
+                        <option value="Университет">Университет</option>
+                        <option value="Филатов Луг">Филатов Луг</option>
+                        <option value="Филевский парк">Филевский парк</option>
+                        <option value="Фили">Фили</option>
+                        <option value="Фонвизинская">Фонвизинская</option>
+                        <option value="Фрунзенская">Фрунзенская</option>
+                        <option value="Ховрино">Ховрино</option>
+                        <option value="Хорошево">Хорошево</option>
+                        <option value="Хорошевская">Хорошевская</option>
+                        <option value="ЦСКА">ЦСКА</option>
+                        <option value="Царицыно">Царицыно</option>
+                        <option value="Цветной бульвар">Цветной бульвар</option>
+                        <option value="Черкизовская">Черкизовская</option>
+                        <option value="Чертановская">Чертановская</option>
+                        <option value="Чеховская">Чеховская</option>
+                        <option value="Чистые пруды">Чистые пруды</option>
+                        <option value="Чкаловская">Чкаловская</option>
+                        <option value="Шаболовская">Шаболовская</option>
+                        <option value="Шелепиха">Шелепиха</option>
+                        <option value="Шипиловская">Шипиловская</option>
+                        <option value="Шоссе Энтузиастов">Шоссе Энтузиастов</option>
+                        <option value="Щелковская">Щелковская</option>
+                        <option value="Щербинка">Щербинка</option>
+                        <option value="Щукинская">Щукинская</option>
+                        <option value="Электрозаводская">Электрозаводская</option>
+                        <option value="Юго-Западная">Юго-Западная</option>
+                        <option value="Южная">Южная</option>
+                        <option value="Ясенево">Ясенево</option>
+                        <option value="улица Народного ополчения">улица Народного ополчения</option>
+                </select>
+            </div>
+        </div>
+        <div class="col-md-1 gy-2">
+            <div class="row ml-0 mr-0">
+                <select class="custom-select mr-sm-2" id="inlineFormCustomSelect" name="repair">
+                    <option selected value="-1">Ремонт</option>
+                        <option value="Косметический">Косметический</option>
+                        <option value="Дизайнерский">Дизайнерский</option>
+                        <option value="Евроремонт">Евроремонт</option>
+                        <option value="Без ремонта">Без ремонта</option>
+                </select>
+            </div>
+        </div>
+        <div class="col-md-1 gy-2">
+            <div class="row ml-0 mr-0">
+                <select class="custom-select mr-sm-2" id="inlineFormCustomSelect" name="finishing">
+                    <option selected value="-1">Отделка</option>
+                        <option value="Нет">Нет</option>
+                        <option value="Черновая">Черновая</option>
+                        <option value="Чистовая">Чистовая</option>
+                </select>
+            </div>
+        </div>
+        <div class="col-md-2 gy-2">
+            <div class="row ml-0 mr-0">
+                <select class="custom-select mr-sm-2" id="inlineFormCustomSelect" name="view_window">
+                    <option selected value="-1">Вид из окон</option>
+                        <option value="На улицу и двор">На улицу и двор</option>
+                        <option value="Во двор">Во двор</option>
+                        <option value="На улицу">На улицу</option>
+                </select>
+            </div>
+        </div>
+        <div class="col-md-1 gy-2">
+            <div class="row ml-0 mr-0">
+                <select class="custom-select mr-sm-2" id="inlineFormCustomSelect" name="type_house">
+                    <option selected value="Вторичка">Тип жилья</option>
+                        <option value="Новостройка">Новостройка</option>
+                        <option value="Вторичка">Вторичка</option>
+                        <option value="Новостройка Апартаменты">Новостройка Апартаменты</option>
+                        <option value="Вторичка Апартаменты">Вторичка Апартаменты</option>
+                        <option value="Новостройка Пентхаус">Новостройка Пентхаус</option>
+                        <option value="Вторичка Пентхаус">Вторичка Пентхаус</option>
+                </select>
+            </div>
+        </div>
+        <div class="col-md-2 gy-2">
+            <div class="row ml-0 mr-0">
+                <select class="custom-select mr-sm-2" id="inlineFormCustomSelect" name="plan">
+                    <option selected value="-1">Планировка</option>
+                        <option value="Изолированная">Изолированная</option>
+                        <option value="Смежная">Смежная</option>
+                        <option value="Смежно-изолированная">Смежно-изолированная</option>
+                </select>
+            </div>
+        </div>
+        <div class="col-md-2">
+            <div class="row ml-0 mr-0">
+                <input class="form-control" type="number" id="replyNumber" min="1940" data-bind="value:replyNumber" placeholder="Год окончания стройки" name="years_building">
+            </div>
+        </div>
+    </div>
+
+    <div style="margin-top:30px;" align="center">
+        <button type="submit" class="btn btn-primary gy-5">Рассчитать</button>
+    </div>
+</form>
+
+<body>
+
+</body>
+</html>
